@@ -76,11 +76,11 @@ for(int i=0;i<arr.size();i++){
   
   unordered_map<int,int> map;
   
-  for(int i =0; i<arr.size();i++){
+  /*for(int i =0; i<arr.size();i++){
     map.insert({i,arr[i]});
-  }
+  }*/
   
-  for(int i =0; i<arr.size()/2+1;i++){
+  for(int i =0; i<arr.size();i++){
     
     //cout<< "key " << k-arr[i] <<endl;
     if(map.find(k-arr[i])!=map.end() && arr[i] != k/2){
