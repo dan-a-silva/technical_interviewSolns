@@ -1,0 +1,116 @@
+#include <bits/stdc++.h>
+// Add any extra import statements you may need here
+
+using namespace std;
+
+// Add any helper functions you may need here
+
+
+int minOperations(vector <int> arr) {
+  // Write your code here
+  string str;
+  
+  
+  for(int x : arr) 
+  {
+   // cout << x  << " ";
+    str.push_back(x+'0');
+    
+  }
+  
+     //for (int i = 0; i < str.size();i++){
+       //     cout << str [i] << " ";
+      //}
+  
+  //cout << endl;
+  
+  unordered_set<string> visited; visited.insert(str);
+  queue<string> q; q.push(std::move(str));
+  
+   for(int step = 0; !q.empty() ; step++){     
+     for(size_t s = q.size(); s; --s){  
+      // cout << "q size is " << s <<  " : ";
+      // cout << " q front is " << q.front()<< " ";
+        auto str = std::move(q.front()); q.pop();
+        if(std::is_sorted(str.begin(),str.end())) {
+           for (int i = 0; i < str.size();i++){
+            cout << " "<< str [i] << " ";
+            }
+          return step;
+        }
+      
+     
+      for(int i = 0; i < str.size();++i){
+        for(int j = i+2 ;j<= str.size();++j){
+          reverse(str.begin() + i, str.begin() + j);
+          int temp =  visited.insert(str).second;
+          
+          if(temp)
+          { q.push(str);
+          // cout << str  << " "<< i << " " << j << endl;
+           // cout << " What is this : " << temp <<": " << i << endl;
+          }
+          reverse(str.begin() + i, str.begin() + j);
+      
+        }
+      }
+    }    
+  }
+  
+  return 0;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// These are the tests we use to determine if the solution is correct.
+// You can add your own at the bottom.
+void printInteger(int n) {
+  cout << "[" << n << "]";
+}
+
+int test_case_number = 1;
+
+void check(int expected, int output) {
+  bool result = (expected == output);
+  const char* rightTick = u8"\u2713";
+  const char* wrongTick = u8"\u2717";
+  if (result) {
+    cout << rightTick << "Test #" << test_case_number << "\n";
+  }
+  else {
+    cout << wrongTick << "Test #" << test_case_number << ": Expected ";
+    printInteger(expected); 
+    cout << " Your output: ";
+    printInteger(output);
+    cout << endl; 
+  }
+  test_case_number++;
+}
+
+int main() {
+
+  int n_1 = 5;
+  vector <int> arr_1{1, 2, 5, 4, 3};
+  int expected_1 = 1;
+  int output_1 = minOperations(arr_1);
+  check(expected_1, output_1);
+
+  int n_2 = 3;
+  vector <int> arr_2{3, 1, 2};
+  int expected_2 = 2;
+  int output_2 = minOperations(arr_2);
+  check(expected_2, output_2);
+
+  // Add your own test cases here
+  
+}
